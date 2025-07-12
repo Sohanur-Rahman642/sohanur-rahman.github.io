@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sohanur Rahman - Senior Software Engineer</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter & Fira Code for mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@500&display=swap" rel="stylesheet">
+    
+    <!-- Custom Styles and CSS -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #121212; /* Dark gray, softer than pure black */
+            color: #e0e0e0; /* Light gray for text */
+        }
+        
+        /* Custom accent color */
+        .accent-color {
+            color: #ffffff; /* White for primary accents */
+        }
+        .accent-bg {
+            background-color: #ffffff;
+        }
+        .accent-border {
+            border-color: #ffffff;
+        }
+
+        /* Glassmorphism card styling with hover effect */
+        .glass-card {
+            background: rgba(30, 30, 30, 0.7); /* Semi-transparent dark gray */
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-8px);
+            border-color: #FBBF24; /* Amber-400 for a "lightening yellow" effect */
+            box-shadow: 0 0 20px rgba(251, 191, 36, 0.2);
+        }
+
+        /* Disable hover effect for the header bar itself */
+        #header.glass-card:hover {
+            transform: none;
+            border-color: rgba(255, 255, 255, 0.1);
+            box-shadow: none;
+        }
+        
+        /* Timeline circle styling */
+        .timeline-circle {
+            background-color: #1f2937; /* gray-800 */
+            border: 2px solid #4b5563; /* gray-600 */
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .timeline-circle-highlight {
+            border-color: #FBBF24 !important; /* Amber-400 */
+            box-shadow: 0 0 15px rgba(251, 191, 36, 0.4);
+        }
+
+        /* Skill Chip hover effect */
+        .skill-chip {
+            transition: border-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+            border: 1px solid #374151; /* gray-700 */
+        }
+
+        .skill-chip:hover {
+            border-color: #FBBF24; /* Amber-400 */
+            color: #FBBF24;
+            transform: translateY(-2px);
+        }
+
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #121212;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333333;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555555;
+        }
+
+        /* Enhanced smooth scrolling animation for sections */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(40px); /* Increased vertical travel for a more noticeable effect */
+            transition: opacity 0.8s cubic-bezier(0.17, 0.55, 0.55, 1) 0.1s, 
+                        transform 0.8s cubic-bezier(0.17, 0.55, 0.55, 1) 0.1s;
+        }
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Section title highlight on click */
+        .title-highlight {
+            color: #FBBF24;
+            transition: color 0.3s ease-in-out;
+        }
+
+        /* Logo typing animation */
+        #logo {
+            font-family: 'Fira Code', monospace;
+            color: #FBBF24; /* Amber-400 */
+        }
+        #logo.typing-cursor::after {
+            content: '_';
+            display: inline-block;
+            animation: blink 0.7s infinite;
+            color: #FBBF24;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* AI Modal Styles */
+        .modal-overlay {
+            transition: opacity 0.3s ease;
+        }
+        .modal-container {
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        .loader {
+            border: 4px solid #4b5563; /* gray-600 */
+            border-top: 4px solid #FBBF24; /* Amber-400 */
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header -->
+    <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 glass-card shadow-md">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" id="logo" class="text-2xl font-bold"></a>
+            <div class="hidden md:flex space-x-8 items-center">
+                <a href="#experience" class="nav-link text-gray-300 hover:text-yellow-400 transition duration-300">Experience</a>
+                <a href="#projects" class="nav-link text-gray-300 hover:text-yellow-400 transition duration-300">Projects</a>
+                <a href="#skills" class="nav-link text-gray-300 hover:text-yellow-400 transition duration-300">Skills</a>
+                <a href="#contact" class="nav-link text-gray-300 hover:text-yellow-400 transition duration-300">Contact</a>
+            </div>
+            <a href="assets/Sohanur Rahman(Resume).pdf" target="_blank" class="hidden md:block border accent-border text-accent-color px-4 py-2 rounded-md hover:border-yellow-400 hover:text-yellow-400 transition duration-300">
+                Resume
+            </a>
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+            </button>
+        </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
+            <a href="#experience" class="nav-link block py-2 text-gray-300 hover:text-yellow-400">Experience</a>
+            <a href="#projects" class="nav-link block py-2 text-gray-300 hover:text-yellow-400">Projects</a>
+            <a href="#skills" class="nav-link block py-2 text-gray-300 hover:text-yellow-400">Skills</a>
+            <a href="#contact" class="nav-link block py-2 text-gray-300 hover:text-yellow-400">Contact</a>
+            <a href="Sohanur Rahman (Resume).pdf" target="_blank" class="block mt-2 border accent-border text-accent-color px-4 py-2 rounded-md text-center hover:border-yellow-400 hover:text-yellow-400 transition duration-300">
+                Resume
+            </a>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 pt-24 md:pt-32">
+
+        <!-- Hero Section -->
+        <section id="hero" class="min-h-[75vh] flex flex-col md:flex-row items-center justify-center fade-in-section">
+            <div class="md:w-3/5 text-center md:text-left">
+                <h1 class="text-4xl md:text-6xl font-bold text-white leading-tight">
+                    Sohanur Rahman
+                </h1>
+                <h2 class="text-2xl md:text-4xl font-semibold text-gray-300 mt-2">
+                    Senior Software Engineer
+                </h2>
+                <p class="mt-6 max-w-xl text-gray-400">
+                    4+ yrs experience building high-performance, scalable Mobile apps (5M+ users). I craft user-centric solutions using Kotlin, Jetpack Compose, React native, KMP, MVVM/MVI. Passionate about clean architecture, real-time systems, and AI-powered features that drive real impact.
+                </p>
+                <div class="mt-8 flex justify-center md:justify-start space-x-4">
+                     <a href="https://github.com/Sohanur-Rahman642" target="_blank" class="text-gray-400 hover:text-yellow-400 transition duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                    </a>
+                    <a href="https://www.linkedin.com/in/sohanur-rahman-asif" target="_blank" class="text-gray-400 hover:text-yellow-400 transition duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-linkedin"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                    </a>
+                </div>
+            </div>
+            <div class="md:w-2/5 mt-10 md:mt-0 flex justify-center">
+                <div class="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 accent-border shadow-2xl bg-gray-800">
+                    <img src="assets/portofilio_profile_pic.jpg" alt="Sohanur Rahman">
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section id="experience" class="py-20 fade-in-section">
+            <h2 class="text-3xl font-bold text-center text-white mb-16">
+                Professional Experience
+            </h2>
+            <div class="relative">
+                <!-- Vertical Line -->
+                <div class="absolute left-6 top-2 w-0.5 h-full bg-gray-700"></div>
+
+                <!-- TallyKhata -->
+                <div class="timeline-entry relative mb-10 pl-20">
+                    <div class="timeline-circle absolute left-6 top-2 z-10 w-8 h-8 rounded-full ring-4 ring-gray-900 transform -translate-x-1/2"></div>
+                    <div class="glass-card rounded-lg shadow-lg p-6">
+                        <h3 class="text-xl font-bold text-white">Senior Software Engineer</h3>
+                        <p class="text-gray-300 font-semibold mt-1">TallyKhata</p>
+                        <p class="text-sm text-gray-500 mb-4">Sept 2024 - Present</p>
+                        <ul class="list-disc list-inside text-gray-400 space-y-2">
+                            <p class="text-gray-300 font-semibold mt-1">TallyKhata</p>
+                            <li>Contributed to core module development and bug fixes of a 5M+ download app with over 300K monthly active
+                                users, that leaded to 70K+ monthly premium subscriptions using Kotlin, MVVM, MVI, Jetpack Compose,
+                                Coroutines, Flow, and related technologies.</li>
+                            <li>Built TallyKhata Gold premium subscription and auto-renew module, integrating TallyPay and other major
+                                MFS platforms (bKash, Nagad, Rocket, card payments).</li>
+                            <li>Implemented robust multi-device data synchronization using WorkManager and Room, ensuring
+                                consistency and reliability across devices.</li>
+                            <li>Developed a seamless Super QR Scan feature for hassle-free payments with any Bangla QR code.</li>
+                            <li>Developed dynamic theming for TallyKhata Gold, Standard and Trial user base.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- TechnoNext Limited -->
+                <div class="timeline-entry relative mb-10 pl-20">
+                    <div class="timeline-circle absolute left-6 top-2 z-10 w-8 h-8 rounded-full ring-4 ring-gray-900 transform -translate-x-1/2"></div>
+                    <div class="glass-card rounded-lg shadow-lg p-6">
+                        <h3 class="text-xl font-bold text-white">Software Engineer</h3>
+                        <p class="text-gray-300 font-semibold mt-1">TechnoNext Limited</p>
+                        <p class="text-sm text-gray-500 mb-4">Jan 2023 - Aug 2024</p>
+                        <ul class="list-disc list-inside text-gray-400 space-y-2">
+                            <p class="text-gray-300 font-semibold mt-1">Foodi</p>
+                            <li>Worked as a team lead of Foodi customer application(1M+ download) and spearheaded
+                                development of core modules from scratch to deployment in the Foodi customer app (Authentication,
+                                Location, Cart & Checkout, Order Tracking), ensuring high scalability and performance using MVVM,
+                                Kotlin, Jetpack Compose, DataStore, Remote config.</li>
+                            <li>Working as a team lead of Foodi customer application(over 1M downloaded) and spearheaded
+                                development of core modules from scratch to deployment in the Foodi customer app (Authentication,
+                                Location, Cart & Checkout, Order Tracking), ensuring high scalability and performance using MVVM,
+                                Kotlin, Jetpack Compose, DataStore, Remote config.</li>
+                            <li>Implemented real-time rider tracking with Google Maps, Geolocation, and Directions APIs, optimizing
+                                cost</li>
+                            <li>Automated CI/CD with GitHub Actions and Firebase App Distribution.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- NexKraft Limited -->
+                <div class="timeline-entry relative pl-20">
+                    <div class="timeline-circle absolute left-6 top-2 z-10 w-8 h-8 rounded-full ring-4 ring-gray-900 transform -translate-x-1/2"></div>
+                    <div class="glass-card rounded-lg shadow-lg p-6">
+                        <h3 class="text-xl font-bold text-white">Software Engineer</h3>
+                        <p class="text-gray-300 font-semibold mt-1">NexKraft Limited</p>
+                        <p class="text-sm text-gray-500 mb-4">Nov 2020 - Dec 2022</p>
+                        <ul class="list-disc list-inside text-gray-400 space-y-2">
+                            <p class="text-gray-300 font-semibold mt-1">Ifleet</p>
+                            <li>Optimized login flow, reducing time and preventing crashes.</li>
+                            <li>Delivered key features for Ifleet: offline caching, real-time tracking, notifications.</li>
+                            <li>Developed dynamic dashboard and secure file sharing for Microfinance app.</li>
+                            <p class="text-gray-300 font-semibold mt-1">MyC2i</p>
+                            <li> Developed key features for the Myc2i cross-platform app (Android/iOS), including dynamic user
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Projects Section -->
+        <section id="projects" class="py-20 fade-in-section">
+            <h2 class="text-3xl font-bold text-center text-white mb-12">
+                Things I've Built
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Project Card 1: Flash -->
+                <div class="glass-card rounded-lg shadow-lg p-6 flex flex-col">
+                    <div class="flex-grow">
+                        <h3 class="text-xl font-bold text-white">Flash</h3>
+                        <p class="text-gray-400 mt-2">A custom Android networking library in Kotlin, inspired by Retrofit, built on HttpUrlConnection to support REST API operations.</p>
+                    </div>
+                    <p class="text-sm text-gray-500 mt-4 font-mono">Kotlin, Java, HttpUrlConnection, Gradle, Maven</p>
+                </div>
+                
+                <!-- Project Card 2: ToffeeLite -->
+                <div class="glass-card rounded-lg shadow-lg p-6 flex flex-col">
+                    <div class="flex-grow">
+                        <h3 class="text-xl font-bold text-white">ToffeeLite</h3>
+                        <p class="text-gray-400 mt-2">An Android OTT app that fetches and presents a list of movies from the OMDB API, featuring an ExoPlayer for streaming with playback position caching.</p>
+                    </div>
+                    <p class="text-sm text-gray-500 mt-4 font-mono">Kotlin, Java, MVVM, Retrofit, ExoPlayer, OMDB API</p>
+                </div>
+
+                <!-- Project Card 3: FAQ.AI -->
+                <div class="glass-card rounded-lg shadow-lg p-6 flex flex-col">
+                    <div class="flex-grow">
+                        <h3 class="text-xl font-bold text-white">FAQ.AI</h3>
+                        <p class="text-gray-400 mt-2">A LangChain powered RAG system to query FAQ information from websites, documents, or PDFs, using LangChain, ChromaDB, and Gemini models.</p>
+                    </div>
+                    <p class="text-sm text-gray-500 mt-4 font-mono">Python, Flask, LangChain, ChromaDB, Gemini, React</p>
+                </div>
+
+                <!-- Project Card 4: ExpensePro -->
+                <div class="glass-card rounded-lg shadow-lg p-6 flex flex-col">
+                    <div class="flex-grow">
+                        <h3 class="text-xl font-bold text-white">ExpensePro</h3>
+                        <p class="text-gray-400 mt-2">An AI-driven Compose Multiplatform app for managing daily expenses through voice commands, using Gemini and Firebase Vertex AI.</p>
+                    </div>
+                    <p class="text-sm text-gray-500 mt-4 font-mono">Compose Multiplatform, Gemini, Firebase Vertex AI, Ktor</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills & Education Section -->
+        <section id="skills" class="py-20 fade-in-section">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <!-- Skills -->
+                <div class="text-center md:text-left">
+                    <h2 class="text-3xl font-bold text-white mb-8">
+                        My Skills
+                    </h2>
+                    <div class="flex flex-wrap justify-center md:justify-start gap-3">
+                        <span class="skill-chip bg-gray-800 text-gray-300 px-4 py-2 rounded-full text-sm font-medium">Kotlin</span>
+                        <span class="skill-chip bg-gray-800 text-gray-300 px-4 py-2 rounded-full text-sm font-medium">Java</span>
+                        <span class="skill-chip bg-gray-800 text-gray-300 px-4 py-2 rounded-full text-sm font-medium">Python</span>
+                        <span class="skill-chip bg-gray-800 text-gray-300 px-4 py-2 rounded-full text-sm font-medium">JavaScript</span>
+                        <span class="skill-chip bg-gray-800 text-gray-300 px-4 py-2 rounded-full text-sm font-medium">Android</span>
+                        <span class="skill-chip bg-gray-800 text-gray-300 px-4 py-2 rounded-full text-sm font-medium">Jetpack Compose</span>
+                        <span class="skill-chip bg-gray-800 text-gray-300 px-4 py-2 rounded-full text-sm font-medium">React Native</span>
+                        <span class="skill-chip bg-gray-800 text-gray-300 px-4 py-2 rounded-full text-sm font-medium">Kotlin Multiplatform</span>
+                        <span class="skill-chip bg-gray-800 text-gray-300 px-4 py-2 rounded-full text-sm font-medium">React</span>
+                        <span class="skill-chip bg-gray-800 text-gray-300 px-4 py-2 rounded-full text-sm font-medium">SQL</span>
+                        <span class="skill-chip bg-gray-800 text-gray-300 px-4 py-2 rounded-full text-sm font-medium">Firebase</span>
+                        <span class="skill-chip bg-gray-800 text-gray-300 px-4 py-2 rounded-full text-sm font-medium">HTML/CSS</span>
+                        <span class="skill-chip bg-gray-800 text-gray-300 px-4 py-2 rounded-full text-sm font-medium">Junit</span>
+                        <span class="skill-chip bg-gray-800 text-gray-300 px-4 py-2 rounded-full text-sm font-medium">Mockito</span>
+                    </div>
+                </div>
+                <!-- Education -->
+                <div class="text-center md:text-left">
+                    <h2 class="text-3xl font-bold text-white mb-8">
+                        Education
+                    </h2>
+                    <div class="glass-card p-6 rounded-lg">
+                        <h3 class="text-xl font-bold text-white">BS in Computer Science and Engineering</h3>
+                        <p class="text-gray-300 font-semibold mt-1">North South University</p>
+                        <p class="text-sm text-gray-500">Jan 2015 - Dec 2019</p>
+                        <p class="text-gray-400 mt-2">CGPA: 3.07</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-20 text-center fade-in-section">
+            <h2 class="text-3xl font-bold text-white mb-4">
+                Get In Touch
+            </h2>
+            <p class="max-w-md mx-auto text-gray-400 mb-8">
+                I'm currently open to new opportunities. Feel free to reach out directly, or use the AI assistant to see how my skills fit your needs.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4">
+                <a href="mailto:sohanasif@gmail.com" class="w-full sm:w-auto inline-block border-2 accent-border text-accent-color text-lg font-bold px-8 py-4 rounded-md hover:border-yellow-400 hover:text-yellow-400 transition duration-300">
+                    Say Hello
+                </a>
+                <button id="open-ai-modal-button" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 accent-bg text-black text-lg font-bold px-8 py-4 rounded-md hover:opacity-90 transition duration-300">
+                    ✨ See if I’m a Match?
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-6 text-center">
+        <div class="flex justify-center space-x-6 mb-4">
+            <a href="https://github.com/Sohanur-Rahman642" target="_blank" class="text-gray-400 hover:text-yellow-400 transition duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+            </a>
+            <a href="https://www.linkedin.com/in/sohanur-rahman-asif" target="_blank" class="text-gray-400 hover:text-yellow-400 transition duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-linkedin"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+            </a>
+            <a href="mailto:sohanasif@gmail.com" class="text-gray-400 hover:text-yellow-400 transition duration-300">
+                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            </a>
+        </div>
+        <p class="text-gray-500 text-sm font-mono">Designed & Built by Sohanur Rahman</p>
+    </footer>
+
+    <!-- AI Role Matcher Modal -->
+    <div id="ai-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden">
+        <!-- Overlay -->
+        <div id="modal-overlay" class="modal-overlay absolute inset-0 bg-black/70 opacity-0"></div>
+        
+        <!-- Modal Content -->
+        <div id="modal-container" class="modal-container glass-card w-full max-w-2xl rounded-lg shadow-xl z-10 opacity-0 transform scale-95 max-h-[90vh] flex flex-col">
+            <!-- Modal Header -->
+            <div class="p-6 border-b border-gray-700/50 shrink-0">
+                <div class="flex justify-between items-start">
+                    <h3 class="text-2xl font-bold text-white">✨ AI-Powered Role Matcher</h3>
+                    <button id="close-ai-modal-button" class="text-gray-400 hover:text-white transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                    </button>
+                </div>
+                <p class="text-gray-400 mt-2">Paste a job description below. The AI will analyze it against my profile and provide a detailed match analysis.</p>
+            </div>
+
+            <!-- Modal Body (Scrollable) -->
+            <div class="p-6 overflow-y-auto">
+                <div>
+                    <label for="job-description-input" class="block text-sm font-medium text-gray-300 mb-2">Job Description</label>
+                    <textarea id="job-description-input" rows="8" class="w-full p-3 rounded-md bg-gray-800 border border-gray-600 text-gray-300 focus:ring-2 focus:ring-white focus:border-white transition" placeholder="Paste the job description here..."></textarea>
+                </div>
+
+                <div class="mt-4 flex justify-end">
+                    <button id="analyze-button" class="inline-flex items-center gap-2 accent-bg text-black font-bold px-6 py-2 rounded-md hover:opacity-90 transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
+                        Analyze Match
+                    </button>
+                </div>
+
+                <div id="loader-container" class="mt-6 flex justify-center items-center hidden">
+                    <div class="loader"></div>
+                </div>
+
+                <div id="result-container" class="mt-6 hidden">
+                    <h4 id="result-title" class="text-lg font-semibold text-white">Analysis Result:</h4>
+                    <div class="mt-2 p-4 rounded-md bg-gray-800 border border-gray-700">
+                        <p id="score-line" class="text-lg"></p>
+                        <ul id="match-reasons" class="mt-4 list-disc list-inside space-y-2 text-gray-300"></ul>
+                    </div>
+                </div>
+
+                 <div id="error-container" class="mt-6 p-4 rounded-md bg-red-900/50 border border-red-700 text-red-300 hidden"></div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="script.js"></script>
+</body>
+</html>
