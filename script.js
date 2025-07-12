@@ -221,7 +221,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 if (score >= 90) {
                     resultTitle.textContent = "Sohan is the guy you need for this role!";
-                    scoreLine.innerHTML += `<p class="text-sm text-gray-400 mt-1">Skip the others and just drop a text for him!</p>`;
+                    scoreLine.innerHTML += `<p class="text-sm text-gray-400 mt-1"><a href="mailto:sohanasif@gmail.com" class="text-yellow-400 hover:underline">Skip the others and just drop a text for him!</a></p>`;
                 } else if (score >= 80) {
                     resultTitle.textContent = "Sohan is a great fit for the role.";
                 } else if (score >= 70) {
