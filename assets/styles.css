@@ -1,0 +1,132 @@
+
+    body {
+        font-family: 'Inter', sans-serif;
+        background-color: #121212; /* Dark gray, softer than pure black */
+        color: #e0e0e0; /* Light gray for text */
+    }
+    
+    /* Custom accent color */
+    .accent-color {
+        color: #ffffff; /* White for primary accents */
+    }
+    .accent-bg {
+        background-color: #ffffff;
+    }
+    .accent-border {
+        border-color: #ffffff;
+    }
+
+    /* Glassmorphism card styling with hover effect */
+    .glass-card {
+        background: rgba(30, 30, 30, 0.7); /* Semi-transparent dark gray */
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .glass-card:hover {
+        transform: translateY(-8px);
+        border-color: #FBBF24; /* Amber-400 for a "lightening yellow" effect */
+        box-shadow: 0 0 20px rgba(251, 191, 36, 0.2);
+    }
+
+    /* Disable hover effect for the header bar itself */
+    #header.glass-card:hover {
+        transform: none;
+        border-color: rgba(255, 255, 255, 0.1);
+        box-shadow: none;
+    }
+    
+    /* Timeline circle styling */
+    .timeline-circle {
+        background-color: #1f2937; /* gray-800 */
+        border: 2px solid #4b5563; /* gray-600 */
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .timeline-circle-highlight {
+        border-color: #FBBF24 !important; /* Amber-400 */
+        box-shadow: 0 0 15px rgba(251, 191, 36, 0.4);
+    }
+
+    /* Skill Chip hover effect */
+    .skill-chip {
+        transition: border-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+        border: 1px solid #374151; /* gray-700 */
+    }
+
+    .skill-chip:hover {
+        border-color: #FBBF24; /* Amber-400 */
+        color: #FBBF24;
+        transform: translateY(-2px);
+    }
+
+    /* Scrollbar styling */
+    ::-webkit-scrollbar {
+        width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+        background: #121212;
+    }
+    ::-webkit-scrollbar-thumb {
+        background: #333333;
+        border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+        background: #555555;
+    }
+
+    /* Enhanced smooth scrolling animation for sections */
+    .fade-in-section {
+        opacity: 0;
+        transform: translateY(40px); /* Increased vertical travel for a more noticeable effect */
+        transition: opacity 0.8s cubic-bezier(0.17, 0.55, 0.55, 1) 0.1s, 
+                    transform 0.8s cubic-bezier(0.17, 0.55, 0.55, 1) 0.1s;
+    }
+    .fade-in-section.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    
+    /* Section title highlight on click */
+    .title-highlight {
+        color: #FBBF24;
+        transition: color 0.3s ease-in-out;
+    }
+
+    /* Logo typing animation */
+    #logo {
+        font-family: 'Fira Code', monospace;
+        color: #FBBF24; /* Amber-400 */
+    }
+    #logo.typing-cursor::after {
+        content: '_';
+        display: inline-block;
+        animation: blink 0.7s infinite;
+        color: #FBBF24;
+    }
+    @keyframes blink {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0; }
+    }
+
+    /* AI Modal Styles */
+    .modal-overlay {
+        transition: opacity 0.3s ease;
+    }
+    .modal-container {
+        transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+    .loader {
+        border: 4px solid #4b5563; /* gray-600 */
+        border-top: 4px solid #FBBF24; /* Amber-400 */
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
