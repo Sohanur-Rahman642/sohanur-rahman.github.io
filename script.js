@@ -1,20 +1,34 @@
 document.addEventListener('DOMContentLoaded', function() {
             // --- Logo typing animation ---
-            const logoElement = document.getElementById('logo');
-            const logoText = '<Sohan/>';
+            const logoTextElement = document.getElementById('logo-text');
+            const logoDotsElement = document.getElementById('logo-dots');
+            const logoBraceElement = document.getElementById('logo-brace');
+            const logoText = 'Sohan';
             let i = 0;
 
             function typeLogo() {
                 if (i < logoText.length) {
-                    logoElement.innerHTML += logoText.charAt(i);
+                    logoTextElement.innerHTML += logoText.charAt(i);
                     i++;
-                    setTimeout(typeLogo, 150);
+                    setTimeout(typeLogo, 100);
+                } else {
+                    // Typing finished, show brace and start dot animation
+                    logoBraceElement.classList.remove('opacity-0');
+                    animateDots();
                 }
             }
 
+            function animateDots() {
+                const dots = ['.&nbsp;&nbsp;', '..&nbsp;', '...'];
+                let dotIndex = 0;
+                setInterval(() => {
+                    logoDotsElement.innerHTML = dots[dotIndex];
+                    dotIndex = (dotIndex + 1) % dots.length;
+                }, 500);
+            }
+
             // Start the typing animation
-            if (logoElement) {
-                logoElement.classList.add('typing-cursor');
+            if (logoTextElement) {
                 typeLogo();
             }
 
@@ -221,7 +235,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 if (score >= 90) {
                     resultTitle.textContent = "Sohan is the guy you need for this role!";
-                    scoreLine.innerHTML += `<p class="text-sm text-gray-400 mt-1"><a href="mailto:sohanasif@gmail.com" class="text-yellow-400 hover:underline">Skip the others and just drop a text for him!</a></p>`;
+                    scoreLine.innerHTML += `<p class="text-sm text-gray-400 mt-1">Skip the others and just drop a text for him!</p>`;
                 } else if (score >= 80) {
                     resultTitle.textContent = "Sohan is a great fit for the role.";
                 } else if (score >= 70) {
